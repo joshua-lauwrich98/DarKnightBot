@@ -15,9 +15,14 @@
  */
 package me.jagrosh.jmusicbot;
 
-import me.jagrosh.jmusicbot.commands.AboutCommand;
 import java.awt.Color;
+import java.util.HashMap;
 import javax.security.auth.login.LoginException;
+import me.darknight98.bot.BotListener;
+import me.darknight98.bot.Command;
+import me.darknight98.bot.CommandParser;
+import me.darknight98.bot.command.PlaylistCommand;
+import me.darknight98.bot.command.ShutdownComputerCommand;
 import me.jagrosh.jdautilities.commandclient.CommandClient;
 import me.jagrosh.jdautilities.commandclient.CommandClientBuilder;
 import me.jagrosh.jdautilities.commandclient.examples.PingCommand;
@@ -38,6 +43,9 @@ import me.jagrosh.jmusicbot.commands.AboutCommand;
  * @author John Grosh (jagrosh)
  */
 public class JMusicBot {
+    
+    public static final CommandParser parser = new CommandParser();
+    public static HashMap<String, Command> commands = new HashMap<>();
     
     /**
      * @param args the command line arguments
@@ -65,7 +73,7 @@ public class JMusicBot {
                 .setEmojis(config.getSuccess(), config.getWarning(), config.getError())
                 .addCommands(
                         new AboutCommand(Color.BLUE.brighter(),
-                                "a music bot that is easy to host yourself!",
+                                "a clever bot that is easy to host yourself!",
                                 new String[]{"High-quality music playback", "FairQueue™ Technology", "Easy to use"},
                                 Permission.MESSAGE_READ, Permission.MESSAGE_WRITE, Permission.MESSAGE_HISTORY, Permission.MESSAGE_ADD_REACTION,
                                 Permission.MESSAGE_EMBED_LINKS, Permission.MESSAGE_ATTACH_FILES, Permission.MESSAGE_MANAGE, Permission.MESSAGE_EXT_EMOJI,
@@ -115,9 +123,41 @@ public class JMusicBot {
                     .addListener(client)
                     .addListener(waiter)
                     .addListener(bot)
+                    .addListener(new BotListener())
                     .buildAsync();
         } catch (LoginException | IllegalArgumentException | RateLimitedException ex) {
             SimpleLog.getLog("Login").fatal(ex);
+        }
+        
+        commands.put("shutdowncomp", new ShutdownComputerCommand());
+        commands.put("playlist", new PlaylistCommand());
+    }
+    
+    
+    public static void handleCommand(CommandParser.CommandContainer cmd) {
+        if (commands.containsKey(cmd.invoke)) {
+            boolean safe = commands.get(cmd.invoke).called(cmd.args, cmd.event);
+            if (safe) {
+                commands.get(cmd.invoke).action(cmd.args, cmd.event);
+                commands.get(cmd.invoke).executed(safe, cmd.event);
+            } else {
+                commands.get(cmd.invoke).executed(safe, cmd.event);
+            }
+        } else if (cmd.invoke.equals("help")) {
+            if (cmd.args[0].equals("math")) {
+                String [] args = new String [] {  "~!+ [num1] [num2]... to add some number consequtively",
+                                    "~!- [num1] [num2]... to substract some number consequtively",
+                                    "~!* [num1] [num2]... to multiply some number consequtively",
+                                    "~!/ [num1] [num2]... to divide some number consequtively"};
+                commands.get("help math").action(args, cmd.event);
+            }
+//        } else {
+//                File file = new File("D:\\IF UNPAR\\BOT\\FILE\\cross.png");
+//                
+//                cmd.event.getChannel().sendFile(file, cmd.event.getMessage());
+//                
+//                cmd.event.getChannel().sendMessage("There is no such command! Type d!help or d!help [type] to show help");
+//            
         }
     }
 }

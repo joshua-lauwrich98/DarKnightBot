@@ -1,0 +1,50 @@
+﻿/////////////////////////////////////////////////////////
+// Config for the JMusicBot                            //
+/////////////////////////////////////////////////////////
+// Any line starting with // is ignored                //
+// You MUST set the token and owner                    //
+// All other items have defaults if you don't set them //
+// Open in Notepad++ for best results                  //
+/////////////////////////////////////////////////////////
+
+
+// This sets the token for the bot to log in with
+// This MUST be a bot token (user tokens will not work)
+// If you don't know how to get a user token, please see the guide here:
+// https://github.com/jagrosh/MusicBot/wiki/Getting-a-Bot-Token
+
+token=Mjk0NDA1NDE1ODI2MDk2MTI5.C7109g.ks270y_Jg5BS2HDce3jgQS-gSKM
+
+
+// This sets the owner of the bot
+// This needs to be the owner's ID (a 17-18 digit number)
+// https://github.com/jagrosh/MusicBot/wiki/Finding-Your-User-ID
+
+owner=292285229798785024
+
+
+// This sets the prefix for the bot
+// The prefix is used to control the commands
+// If you use !!, the play command will be !!play
+// If you do not set this, the prefix will be a mention of the bot (@Botname play)
+
+prefix=d!
+
+
+// If you set this, it modifies the default game of the bot
+//
+//game=DarKnight's servant
+
+
+// If you set these, it will change the success, warning, and error emojis
+//
+success=🎶
+warning=💡
+error=🚫
+
+
+// If you set this, you change the word used to view the help.
+// For example, if you set the prefix to !! and the help to cmds, you would type
+// !!cmds to see the help text
+//
+//help=cmds
