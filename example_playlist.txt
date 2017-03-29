@@ -1,0 +1,9 @@
+# jagrosh's playlist
+# lots of formats are supported, as shown below
+# JustSomeBots playlist format is supported as well
+
+ytsearch:juicy fruit williams
+PLUib4KwT0DMJaPgg_nr1ia8FY5JcXksvb
+ytsearch:gorillaz dare audio
+scsearch:lights metrognome
+https://www.youtube.com/watch?v=x7ogV49WGco
